@@ -46,7 +46,9 @@ def open_live_tchat(number_of_message,chat_name):
                 print('Chat saved in {}'.format(name_chat))
                 return
 
-    twitch.Chat(channel=channels, nickname=username, oauth=password).subscribe(
+    live_chat = twitch.Chat(channel=channels, nickname=username, oauth=password)
+
+    live_chat.subscribe(
             lambda message: _add_to_chat(message))
 
 
