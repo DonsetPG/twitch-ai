@@ -39,7 +39,7 @@ def open_live_tchat(number_of_message,chat_name):
         
         chat['Message'].append(msg_dict)
 
-        if chat['Compteur'] > number_of_message:
+        if chat['Compteur'] > number_of_message and chat['Compteur']%300 == 0:
             with open(name_chat, 'w') as fp:
                 print('Saving chat...')
                 json.dump(chat, fp)
@@ -52,7 +52,7 @@ def open_live_tchat(number_of_message,chat_name):
             lambda message: _add_to_chat(message))
 
 
-open_live_tchat(number_of_message=10000,chat_name=name_chat)
+open_live_tchat(number_of_message=10,chat_name=name_chat)
 
 
 
