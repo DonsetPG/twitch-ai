@@ -12,6 +12,6 @@ Get your token at : https://twitchapps.com/tmi/
 
 * Download json and twitch : 
 ```
-pip3 install --user json twitch-python
+pip3 install --user twitch-python
 ```
 * Run with ```python3 name_file.py```
