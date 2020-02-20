@@ -5,6 +5,8 @@ import  pandas  as pd
 from    absl    import flags
 from    absl    import app
 
+from typing import List, Set, Dict, Tuple, Optional
+
 """
 
 python3 log_to_csv.py --log_path 'sardo_live_nocturne.log' \
@@ -34,7 +36,7 @@ sender_mapping = {
 
 FLAGS = flags.FLAGS
 
-def _splitter(line):
+def _splitter(line: str) -> Tuple:
     """Takes a line from the .log file and retrieve useful informations
     Args:
         line: The line to process
@@ -46,24 +48,24 @@ def _splitter(line):
 
     """
     #Splitting the time
-    end_time = line.find(']')
-    time_ = line[1:end_time]
-    new_line = line[end_time+3:]
+    end_time: int = line.find(']')
+    time_: str = line[1:end_time]
+    new_line: str = line[end_time+3:]
     # Retrieving the sender type if it exists
-    type_sender = 'none'
+    type_sender: str = 'none'
     if new_line[0] in sender_mapping: 
         type_sender = sender_mapping[new_line[0]]
         new_line = new_line[1:]
     # Retrieving the sender's name
-    end_sender = new_line.find('>')
-    sender_ = new_line[:end_sender]
+    end_sender: int = new_line.find('>')
+    sender_: str = new_line[:end_sender]
     # Content of the message
     new_line = new_line[end_sender+2:-1]
     new_line = new_line.replace(',',';')
 
     return type_sender, time_, sender_, new_line
 
-def _read_log(log_path):
+def _read_log(log_path: str) -> Dict:
     """Reads a .log and returns a dict with the wanted informations
     Args:
         log_path: The path of the .log file
@@ -71,7 +73,7 @@ def _read_log(log_path):
         log_to_dict: A dict with the valuable informations
 
     """
-    log_to_dict = {
+    log_to_dict: Dict  = {
         'Time':[],
         'Sender':[],
         'Sender_type':[],
