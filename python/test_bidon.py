@@ -1,5 +1,9 @@
 import twitch
 import json 
+from datetime import datetime
+from typing import List, Set, Dict, Tuple, Optional
+
+
 # Username of your channel
 username = 'Test_Bot_AI'
 # oauth to get on twitch.com
@@ -9,19 +13,19 @@ channels = 'solary'
 # Name to give to the json file s
 name_chat = channels +'_chat.json'
 
-def open_live_tchat(number_of_message,chat_name):
+def open_live_tchat(number_of_message: int,chat_name: str):
     """Function that open the chat of a channel and saves the senders and messages.
     Arg:
         number_of_message: Number of message you want to save.
         chat_name: Name of the .json file where you want to save the messages
     """
 
-    chat = {
+    chat: Dict = {
         'Message':[],
         'Compteur':0
     }
 
-    def _add_to_chat(message):
+    def _add_to_chat(message: twitch.Message):
         """Function that print a message, and save it inside a dict.
         """
 
@@ -46,7 +50,7 @@ def open_live_tchat(number_of_message,chat_name):
                 print('Chat saved in {}'.format(name_chat))
                 return
 
-    live_chat = twitch.Chat(channel=channels, nickname=username, oauth=password)
+    live_chat: twitch.Chat = twitch.Chat(channel=channels, nickname=username, oauth=password)
 
     live_chat.subscribe(
             lambda message: _add_to_chat(message))
